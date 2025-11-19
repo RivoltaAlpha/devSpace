@@ -19,6 +19,10 @@ export function Header() {
       label: 'Resources',
     },
     {
+      path: '/therapists',
+      label: 'Therapists',
+    },
+    {
       path: '/contact',
       label: 'Contact',
     },
