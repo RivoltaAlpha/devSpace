@@ -10,6 +10,7 @@ import { Resources } from "./pages/Resources";
 import { ChatBot } from "./components/ChatBot";
 import { Therapists } from "./pages/Therapists";
 import ChatBotPage from "./pages/Chatbot";
+import Conversation from "./Dashboards/therapist/conversation";
 export function App() {
   return (
     <>
@@ -25,6 +26,7 @@ export function App() {
             <Route path="/resources" element={<Resources />} />
             <Route path="/therapists" element={<Therapists />} />
             <Route path="/chatbot" element={<ChatBotPage />} />
+            <Route path="/dev/chat" element={<Conversation />} />
           </Routes>
         </main>
         <ChatBot />
