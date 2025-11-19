@@ -34,7 +34,7 @@ export function Landing() {
   return (
     <div className="w-full">
       {/* Hero Section with Background Image */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+      <section className="relative min-h-[900px] flex items-center justify-center px-4 overflow-hidden">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img
@@ -42,7 +42,7 @@ export function Landing() {
             alt="Developer workspace"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-900/80 to-teal-900/70"></div>
+          <div className="absolute inset-0 bg-linear-to-br from-slate-900/90 via-slate-900/80 to-teal-900/70"></div>
         </div>
 
         {/* Hero Content */}
@@ -95,7 +95,7 @@ export function Landing() {
         </motion.div>
 
         {/* Decorative Elements */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent z-10"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent z-10"></div>
       </section>
 
       {/* Features Section */}
@@ -234,7 +234,7 @@ export function Landing() {
               className="flex items-start space-x-4 bg-white/80 backdrop-blur-sm p-6 rounded-xl"
               variants={fadeInUp}
             >
-              <div className="bg-teal-50 p-3 rounded-lg flex-shrink-0">
+              <div className="bg-teal-50 p-3 rounded-lg shrink-0">
                 <ShieldCheckIcon className="w-6 h-6 text-teal-600" />
               </div>
               <div>
@@ -252,7 +252,7 @@ export function Landing() {
               className="flex items-start space-x-4 bg-white/80 backdrop-blur-sm p-6 rounded-xl"
               variants={fadeInUp}
             >
-              <div className="bg-teal-50 p-3 rounded-lg flex-shrink-0">
+              <div className="bg-teal-50 p-3 rounded-lg shrink-0">
                 <ClockIcon className="w-6 h-6 text-teal-600" />
               </div>
               <div>
@@ -270,7 +270,7 @@ export function Landing() {
               className="flex items-start space-x-4 bg-white/80 backdrop-blur-sm p-6 rounded-xl"
               variants={fadeInUp}
             >
-              <div className="bg-teal-50 p-3 rounded-lg flex-shrink-0">
+              <div className="bg-teal-50 p-3 rounded-lg shrink-0">
                 <UsersIcon className="w-6 h-6 text-teal-600" />
               </div>
               <div>
@@ -288,7 +288,7 @@ export function Landing() {
               className="flex items-start space-x-4 bg-white/80 backdrop-blur-sm p-6 rounded-xl"
               variants={fadeInUp}
             >
-              <div className="bg-teal-50 p-3 rounded-lg flex-shrink-0">
+              <div className="bg-teal-50 p-3 rounded-lg shrink-0">
                 <BookOpenIcon className="w-6 h-6 text-teal-600" />
               </div>
               <div>
@@ -313,7 +313,7 @@ export function Landing() {
             alt="Team collaboration"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-900/95 to-slate-900/95"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-teal-900/95 to-slate-900/95"></div>
         </div>
 
         <motion.div

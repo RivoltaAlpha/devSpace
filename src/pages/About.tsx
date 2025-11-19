@@ -1,11 +1,10 @@
-import React from 'react'
 import { Card } from '../components/ui/Card'
 import { HeartIcon, TargetIcon, UsersIcon } from 'lucide-react'
 export function About() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-teal-50 via-white to-slate-50 py-20 px-4">
+      <section className="bg-linear-to-br from-teal-50 via-white to-slate-50 py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
             Mental health support that gets it

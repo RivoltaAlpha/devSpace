@@ -20,7 +20,7 @@ export function Login() {
     })
   }
   return (
-    <div className="w-full min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-br from-teal-50 via-white to-slate-50 py-12 px-4">
+    <div className="w-full min-h-[calc(100vh-4rem)] flex items-center justify-center bg-linear-to-br from-teal-50 via-white to-slate-50 py-12 px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-slate-900 mb-2">

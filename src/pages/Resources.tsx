@@ -60,7 +60,7 @@ export function Resources() {
           </p>
         </motion.div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent z-10"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent z-10"></div>
       </section>
 
       {/* Resources Section */}
@@ -94,7 +94,7 @@ export function Resources() {
                     alt={category.category}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-900/70 flex items-center">
+                  <div className="absolute inset-0 bg-linear-to-r from-slate-900/90 to-slate-900/70 flex items-center">
                     <div className="px-8 flex items-center space-x-4">
                       <div className="bg-teal-500 p-4 rounded-xl">
                         <IconComponent className="w-10 h-10 text-white" />
@@ -129,7 +129,7 @@ export function Resources() {
                             alt={item.title}
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                          <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 to-transparent"></div>
                           <div className="absolute top-4 left-4 flex items-center gap-2">
                             <span className="text-xs font-semibold text-white bg-teal-600 px-3 py-1 rounded-full">
                               {item.type}
@@ -171,7 +171,7 @@ export function Resources() {
             alt="Supportive team"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-900/95 to-slate-900/90"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-teal-900/95 to-slate-900/90"></div>
         </div>
 
         <motion.div
