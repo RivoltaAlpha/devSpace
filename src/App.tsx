@@ -9,23 +9,27 @@ import { Contact } from "./pages/Contact";
 import { Resources } from "./pages/Resources";
 import { ChatBot } from "./components/ChatBot";
 import { Therapists } from "./pages/Therapists";
+import ChatBotPage from "./pages/Chatbot";
 export function App() {
   return (
-    <div className="flex flex-col min-h-screen w-full bg-white">
-      <Header />
-      <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/therapists" element={<Therapists />} />
-        </Routes>
-      </main>
-      <Footer />
-      <ChatBot />
-    </div>
+    <>
+      <div className="flex flex-col min-h-screen w-full bg-white">
+        <Header />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/therapists" element={<Therapists />} />
+            <Route path="/chatbot" element={<ChatBotPage />} />
+          </Routes>
+        </main>
+        <ChatBot />
+        <Footer />
+      </div>
+    </>
   );
 }

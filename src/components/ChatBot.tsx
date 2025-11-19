@@ -1,12 +1,76 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageSquareIcon, XIcon, SendIcon, SparklesIcon } from 'lucide-react'
+import { GoogleGenerativeAI } from '@google/generative-ai'
+import { resources } from './data/data'
 
 interface Message {
   id: string
   text: string
   sender: 'user' | 'bot'
   timestamp: Date
+}
+
+// Initialize Gemini AI
+const getApiKey = (): string => {
+  const envApiKey = import.meta.env?.VITE_GEMINI_API
+  return envApiKey
+}
+
+const apiKey = getApiKey()
+const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null
+const model = genAI
+  ? genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
+  : null
+
+// Generate AI response using Gemini
+const generateAIResponse = async (
+  userMessage: string,
+  conversationHistory: Message[] = [],
+): Promise<string> => {
+  if (!model) {
+    return "I'm currently unable to provide AI-powered responses. Please check that your API key is configured correctly."
+  }
+
+  try {
+    // Build conversation context from history
+    const historyContext = conversationHistory
+      .slice(-6) // Last 6 messages for context
+      .map(msg => `${msg.sender === 'user' ? 'User' : 'Assistant'}: ${msg.text}`)
+      .join('\n')
+
+    const prompt = `
+You are a compassionate and empathetic mental health assistant for DevSpace, a mental wellness platform designed specifically for developers and tech professionals.
+
+Available resources:
+${JSON.stringify(resources, null, 2)}
+
+Conversation history:
+${historyContext}
+
+Current user message: "${userMessage}"
+
+Guidelines:
+- Be warm, supportive, and conversational
+- Keep responses concise (2-4 sentences typically)
+- Use emojis sparingly but effectively to add warmth 😊
+- When appropriate, suggest one of these options:
+  • Therapist search (if they seem distressed or need professional help)
+  • Mental load dump (to help them vent and process feelings)
+  • General supportive chat about their day
+- Reference specific coping strategies or resources from the available data when relevant
+- Validate their feelings and normalize developer-specific challenges
+- Ask thoughtful follow-up questions to understand their situation better
+
+Respond naturally and helpfully to their message:`
+
+    const result = await model.generateContent(prompt)
+    const response = result.response
+    return response.text()
+  } catch (error) {
+    console.error('Error generating AI response:', error)
+    return "I apologize, I'm having trouble connecting right now. 😔 Please try again in a moment. If this continues, you can still explore our mental wellness resources."
+  }
 }
 
 const quickActions = [
@@ -27,24 +91,13 @@ const quickActions = [
     topic: 'anxiety',
   },
 ]
-const botResponses: Record<string, string> = {
-  burnout:
-    "I understand burnout can be overwhelming. It's common among developers, especially with tight deadlines and on-call rotations. Let's talk about what you're experiencing. What aspects of work are feeling most draining right now?",
-  imposter:
-    "Imposter syndrome affects so many developers, even experienced ones. Remember, feeling like you don't know enough is often a sign you're growing and learning. What specific situations trigger these feelings for you?",
-  balance:
-    "Work-life balance is crucial for long-term wellbeing. As a developer, it can be hard to 'switch off' mentally. What does your current routine look like, and where do you feel the boundaries are blurring?",
-  anxiety:
-    "Deploy anxiety is completely normal - you care about your work and its impact. Let's explore some techniques to manage that stress. What part of the deployment process causes you the most worry?",
-  default:
-    "I'm here to support you. Whether it's stress, burnout, imposter syndrome, or just needing someone to talk to - I'm listening. What's on your mind today?",
-}
+
 export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Hi! I'm your devspace AI companion. I'm here to provide support and understanding for the unique challenges you face as a developer. How are you feeling today?",
+      text: "Hi! I'm your DevSpace AI companion. 👋 I'm here to provide support and understanding for the unique challenges you face as a developer. How are you feeling today?",
       sender: 'bot',
       timestamp: new Date(),
     },
@@ -52,61 +105,101 @@ export function ChatBot() {
   const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({
       behavior: 'smooth',
     })
   }
+
   useEffect(() => {
     scrollToBottom()
   }, [messages, isTyping])
-  const handleSendMessage = (text: string) => {
+
+  const handleSendMessage = async (text: string) => {
     if (!text.trim()) return
+
     const userMessage: Message = {
       id: Date.now().toString(),
       text: text.trim(),
       sender: 'user',
       timestamp: new Date(),
     }
+
     setMessages((prev) => [...prev, userMessage])
     setInputValue('')
     setIsTyping(true)
-    // Simulate AI response delay
-    setTimeout(() => {
+
+    try {
+      // Generate AI response with conversation history
+      const aiResponse = await generateAIResponse(text.trim(), messages)
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: botResponses.default,
+        text: aiResponse,
         sender: 'bot',
         timestamp: new Date(),
       }
+
       setMessages((prev) => [...prev, botMessage])
+    } catch (error) {
+      console.error('Error in handleSendMessage:', error)
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "I apologize, something went wrong. Please try sending your message again.",
+        sender: 'bot',
+        timestamp: new Date(),
+      }
+      setMessages((prev) => [...prev, errorMessage])
+    } finally {
       setIsTyping(false)
-    }, 1500)
+    }
   }
-  const handleQuickAction = (topic: string) => {
+
+  const handleQuickAction = async (topic: string) => {
+    const actionLabel = quickActions.find((a) => a.topic === topic)?.label || ''
+    
     const userMessage: Message = {
       id: Date.now().toString(),
-      text: quickActions.find((a) => a.topic === topic)?.label || '',
+      text: actionLabel,
       sender: 'user',
       timestamp: new Date(),
     }
+
     setMessages((prev) => [...prev, userMessage])
     setIsTyping(true)
-    setTimeout(() => {
+
+    try {
+      // Use AI to respond to quick action
+      const aiResponse = await generateAIResponse(actionLabel, messages)
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: botResponses[topic] || botResponses.default,
+        text: aiResponse,
         sender: 'bot',
         timestamp: new Date(),
       }
+
       setMessages((prev) => [...prev, botMessage])
+    } catch (error) {
+      console.error('Error in handleQuickAction:', error)
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "I apologize, something went wrong. Please try again.",
+        sender: 'bot',
+        timestamp: new Date(),
+      }
+      setMessages((prev) => [...prev, errorMessage])
+    } finally {
       setIsTyping(false)
-    }, 1500)
+    }
   }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     handleSendMessage(inputValue)
   }
+
   return (
     <>
       {/* Floating Chat Button */}
@@ -196,7 +289,7 @@ export function ChatBot() {
               className="fixed bottom-6 right-6 z-50 w-full md:w-96 h-[600px] max-h-[80vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden md:max-w-md mx-4 md:mx-0"
             >
               {/* Header */}
-              <div className="bg-linear-to-r from-teal-600 to-teal-700 text-white p-4 flex items-center justify-between">
+              <div className="bg-gradient-to-r from-teal-600 to-teal-700 text-white p-4 flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
                     <SparklesIcon className="w-5 h-5" />
@@ -234,7 +327,7 @@ export function ChatBot() {
                     <div
                       className={`max-w-[80%] rounded-2xl px-4 py-3 ${message.sender === 'user' ? 'bg-teal-600 text-white rounded-br-sm' : 'bg-white text-slate-800 rounded-bl-sm shadow-sm'}`}
                     >
-                      <p className="text-sm leading-relaxed">{message.text}</p>
+                      <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.text}</p>
                       <p
                         className={`text-xs mt-1 ${message.sender === 'user' ? 'text-teal-100' : 'text-slate-400'}`}
                       >
@@ -348,17 +441,18 @@ export function ChatBot() {
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Type your message..."
                     className="flex-1 px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-sm"
+                    disabled={isTyping}
                   />
                   <button
                     type="submit"
-                    disabled={!inputValue.trim()}
+                    disabled={!inputValue.trim() || isTyping}
                     className="bg-teal-600 text-white p-3 rounded-xl hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <SendIcon className="w-5 h-5" />
                   </button>
                 </div>
                 <p className="text-xs text-slate-500 mt-2 text-center">
-                  This is a demo. Real AI integration coming soon.
+                  Powered by Gemini AI ✨
                 </p>
               </form>
             </motion.div>

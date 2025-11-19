@@ -26,6 +26,10 @@ export function Header() {
       path: '/contact',
       label: 'Contact',
     },
+    {
+      path: '/chatbot',
+      label: 'Support',
+    },
   ]
   const isActive = (path: string) => location.pathname === path
   return (
