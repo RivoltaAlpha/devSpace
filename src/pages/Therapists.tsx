@@ -158,7 +158,7 @@ export function Therapists() {
             alt="Professional therapist"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-linear-to-br from-slate-900/90 via-teal-900/80 to-slate-900/90"></div>
+          <div className="absolute inset-0 bg-linear-to-br from-slate-900/90 via-slate-900/80 to-teal-900/70"></div>
         </div>
 
         <motion.div

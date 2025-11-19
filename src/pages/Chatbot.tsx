@@ -267,7 +267,7 @@ export default function ChatBotPage() {
 
   return (
     <div className="flex mx-auto max-w-8xl h-screen px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex flex-1 gap-90 bg-linear-to-br from-slate-50 to-slate-100 mb-20">
+      <div className="flex flex-1 gap-90 bg-linear-to-br from-slate-50 to-slate-100">
         {/* Sidebar */}
         <AnimatePresence>
           {showSidebar && (
