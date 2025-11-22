@@ -289,7 +289,7 @@ export function ChatBot() {
               className="fixed bottom-6 right-6 z-50 w-full md:w-96 h-[600px] max-h-[80vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden md:max-w-md mx-4 md:mx-0"
             >
               {/* Header */}
-              <div className="bg-gradient-to-r from-teal-600 to-teal-700 text-white p-4 flex items-center justify-between">
+              <div className="bg-linear-to-r from-teal-600 to-teal-700 text-white p-4 flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
                     <SparklesIcon className="w-5 h-5" />
