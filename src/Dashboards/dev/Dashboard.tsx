@@ -1,0 +1,142 @@
+import { motion } from "framer-motion";
+import {
+  Sparkles,
+  Moon,
+  Sunrise,
+  Brain,
+  MessageCircle,
+  User,
+  AlertCircle,
+  TrendingUp,
+  Calendar,
+} from "lucide-react";
+import type { SessionType } from "./Session";
+
+export const Dashboard = ({ onSelectSession }: { onSelectSession: (type: SessionType) => void }) => {
+  const sessions = [
+    {
+      type: "dump" as SessionType,
+      icon: AlertCircle,
+      title: "Mental Load Dump",
+      description: "Vent freely without judgment. Get it all out.",
+      color: "from-purple-500 to-purple-600",
+      emoji: "💭",
+    },
+    {
+      type: "morning" as SessionType,
+      icon: Sunrise,
+      title: "Morning Check-in",
+      description: "Start your day with intention and clarity.",
+      color: "from-amber-500 to-orange-600",
+      emoji: "☀️",
+    },
+    {
+      type: "night" as SessionType,
+      icon: Moon,
+      title: "Night Reflection",
+      description: "Wind down, reflect, and prepare for rest.",
+      color: "from-indigo-500 to-indigo-600",
+      emoji: "🌙",
+    },
+    {
+      type: "mindmap" as SessionType,
+      icon: Brain,
+      title: "Code Logic Walk",
+      description: "Think through complex problems together.",
+      color: "from-teal-500 to-teal-600",
+      emoji: "🧠",
+    },
+    {
+      type: "chat" as SessionType,
+      icon: MessageCircle,
+      title: "Casual Chat",
+      description: "Just talk. About anything, really.",
+      color: "from-blue-500 to-blue-600",
+      emoji: "💬",
+    },
+    {
+      type: "therapist" as SessionType,
+      icon: User,
+      title: "Find a Therapist",
+      description: "Connect with professional mental health support.",
+      color: "from-rose-500 to-rose-600",
+      emoji: "🤝",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-slate-100 to-slate-200 p-6">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-12 mt-8"
+        >
+          <div className="flex items-center justify-center mb-4">
+            <div className="bg-linear-to-br from-teal-500 to-teal-600 p-3 rounded-2xl">
+              <Sparkles className="w-8 h-8 text-white" />
+            </div>
+          </div>
+          <h1 className="text-4xl font-bold text-slate-800 mb-3">DevSpace</h1>
+          <h3 className="text-xl font-medium text-slate-600 mb-2">Welcome back, Developer!</h3>
+          <p className="text-slate-600 text-lg">Your mental health companion for developers</p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200 mb-8"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <TrendingUp className="w-5 h-5 text-teal-600" />
+              <h3 className="font-semibold text-slate-800">Weekly Burnout Assessment</h3>
+            </div>
+            <div className="flex items-center space-x-2 text-sm text-slate-500">
+              <Calendar className="w-4 h-4" />
+              <span>Next check: 3 days</span>
+            </div>
+          </div>
+          <div className="mt-4 flex items-center space-x-4">
+            <div className="flex-1 bg-slate-100 rounded-full h-2">
+              <div className="bg-linear-to-r from-green-500 to-teal-500 h-2 rounded-full" style={{ width: "35%" }} />
+            </div>
+            <span className="text-sm font-medium text-teal-600">Low Risk</span>
+          </div>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {sessions.map((session, index) => (
+            <motion.button
+              key={session.type}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * (index + 2) }}
+              onClick={() => onSelectSession(session.type)}
+              className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200 hover:shadow-xl transition-all text-left group hover:scale-105"
+            >
+              <div className={`bg-linear-to-br ${session.color} p-3 rounded-xl inline-block mb-4`}>
+                <session.icon className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 mb-2 flex items-center space-x-2">
+                <span>{session.title}</span>
+                <span className="text-2xl">{session.emoji}</span>
+              </h3>
+              <p className="text-slate-600 text-sm">{session.description}</p>
+            </motion.button>
+          ))}
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="text-center text-slate-500 text-sm mt-12"
+        >
+          🔒 All sessions are confidential and temporary.
+        </motion.p>
+      </div>
+    </div>
+  );
+};
