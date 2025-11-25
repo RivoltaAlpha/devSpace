@@ -14,6 +14,7 @@ import {
 import type { SessionType } from "./Session";
 import Sidebar from "../../components/layout/Sidebar";
 import { useState } from "react";
+import { Header } from "../../components/layout/Header";
 
 export const Dashboard = ({ onSelectSession }: { onSelectSession: (type: SessionType) => void }) => {
   const sessions = [
@@ -92,6 +93,7 @@ export const Dashboard = ({ onSelectSession }: { onSelectSession: (type: Session
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
+        <Header />
         {/* Top Bar */}
         <header className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between shadow-sm">
           <button

@@ -8,6 +8,7 @@ import {
   XIcon,
 } from "lucide-react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Header } from "../components/layout/Header";
 
 interface Message {
   id: string;
@@ -266,7 +267,9 @@ export default function ChatBotPage() {
   };
 
   return (
-    <div className="flex mx-auto max-w-8xl h-screen px-4 sm:px-6 lg:px-8 py-8">
+    <>
+      <Header />
+    <div className="flex mx-auto max-w-8xl h-screen px-4 sm:px-6 lg:px-8 py-8 mt-4">
       <div className="flex flex-1 gap-90 bg-linear-to-br from-slate-50 to-slate-100">
         {/* Sidebar */}
         <AnimatePresence>
@@ -495,5 +498,6 @@ export default function ChatBotPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

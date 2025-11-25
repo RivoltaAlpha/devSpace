@@ -10,6 +10,8 @@ import {
   ClockIcon,
   UsersIcon,
 } from 'lucide-react'
+import { Header } from '../components/layout/Header'
+import { Footer } from '../components/layout/Footer'
 const fadeInUp = {
   initial: {
     opacity: 0,
@@ -33,6 +35,7 @@ const staggerContainer = {
 export function Landing() {
   return (
     <div className="w-full">
+      <Header />
       {/* Hero Section with Background Image */}
       <section className="relative min-h-[900px] flex items-center justify-center px-4 overflow-hidden">
         {/* Background Image with Overlay */}
@@ -347,6 +350,7 @@ export function Landing() {
           </Link>
         </motion.div>
       </section>
+      <Footer />
     </div>
   )
 }

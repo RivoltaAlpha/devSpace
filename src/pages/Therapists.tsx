@@ -4,6 +4,8 @@ import { TherapistCard } from '../components/TherapistCard'
 import type { TherapistProfile } from '../components/TherapistCard'
 import { BookingModal } from '../components/BookingModal'
 import { FilterIcon } from 'lucide-react'
+import { Header } from '../components/layout/Header'
+import { Footer } from '../components/layout/Footer'
 const fadeInUp = {
   initial: {
     opacity: 0,
@@ -150,6 +152,7 @@ export function Therapists() {
   }
   return (
     <div className="w-full">
+      <Header />
       {/* Hero Section */}
       <section className="relative min-h-[800px] flex items-center justify-center px-4 overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -312,6 +315,7 @@ export function Therapists() {
         onClose={() => setIsBookingModalOpen(false)}
         therapist={selectedTherapist}
       />
+    <Footer />
     </div>
   )
 }

@@ -3,6 +3,8 @@ import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 import { Card } from '../components/ui/Card'
 import { MailIcon, MessageSquareIcon, ClockIcon } from 'lucide-react'
+import { Header } from '../components/layout/Header'
+import { Footer } from '../components/layout/Footer'
 export function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -28,6 +30,7 @@ export function Contact() {
   return (
     <>
     <div className="w-full">
+      <Header />
       {/* Hero Section */}
       <section className="bg-linear-to-br from-teal-50 via-white to-slate-50 py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
@@ -203,6 +206,7 @@ export function Contact() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
     </>
   )

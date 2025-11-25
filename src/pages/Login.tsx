@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 import { Card } from '../components/ui/Card'
+import { Header } from '../components/layout/Header'
+import { Footer } from '../components/layout/Footer'
 export function Login() {
   const [formData, setFormData] = useState({
     email: '',
@@ -20,6 +22,8 @@ export function Login() {
     })
   }
   return (
+    <>
+      <Header />
     <div className="w-full min-h-[calc(100vh-4rem)] flex items-center justify-center bg-linear-to-br from-teal-50 via-white to-slate-50 py-12 px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
@@ -95,5 +99,7 @@ export function Login() {
         </p>
       </div>
     </div>
+      <Footer />
+      </>
   )
 }

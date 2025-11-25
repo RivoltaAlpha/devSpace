@@ -1,8 +1,11 @@
+import { Footer } from '../components/layout/Footer'
+import { Header } from '../components/layout/Header'
 import { Card } from '../components/ui/Card'
 import { HeartIcon, TargetIcon, UsersIcon } from 'lucide-react'
 export function About() {
   return (
     <div className="w-full">
+      <Header />
       {/* Hero Section */}
       <section className="bg-linear-to-br from-teal-50 via-white to-slate-50 py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
@@ -147,6 +150,7 @@ export function About() {
           </div>
         </div>
       </section>
+      <Footer/>
     </div>
   )
 }

@@ -1,4 +1,6 @@
 import { resources } from '../components/data/data'
+import { Footer } from '../components/layout/Footer'
+import { Header } from '../components/layout/Header'
 import { Card } from '../components/ui/Card'
 import { motion } from 'framer-motion'
 
@@ -26,6 +28,7 @@ export function Resources() {
 
   return (
     <div className="w-full">
+      <Header />
       {/* Hero Section with Background Image */}
       <section className="relative min-h-[900px] flex items-center justify-center px-4 overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -212,6 +215,7 @@ export function Resources() {
           </div>
         </motion.div>
       </section>
+      <Footer />
     </div>
   )
 }
